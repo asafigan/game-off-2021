@@ -35,6 +35,6 @@ func fling():
 		spawned.angular_velocity = rng.randf_range(-100, 100)
 		spawned.global_position = global_position + Vector2(0, -4)
 		spawned.set("spawn_with_health", current_health)
-		spawned.call("disable_enemy_collisions")
+		spawned.call_deferred("disable_enemy_collisions")
 		if current_health <= 0:
 			spawned.set("spawn_scene", null)

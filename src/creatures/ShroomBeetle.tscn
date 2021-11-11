@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/creatures/ShroomBeetle.gd" type="Script" id=1]
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
@@ -7,6 +7,21 @@
 [ext_resource path="res://assets/shroom beetle.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/collisions/StaticBodyHitBox.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Animation" id=24]
+resource_name = "Damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack"
@@ -18,17 +33,41 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8, 0.9 ),
+"times": PoolRealArray( 0, 0.7, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -4 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -10.2462, 10.8, 10.8 ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "Move"
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Pivot/Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -44,7 +83,7 @@ tracks/0/keys = {
 resource_name = "Standby"
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Pivot/Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -67,22 +106,45 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pivot/Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=4]
 animation = "Attack"
 
-[sub_resource type="AnimationNodeAnimation" id=5]
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "Move"
 
-[sub_resource type="AnimationNodeTimeScale" id=6]
+[sub_resource type="AnimationNodeTimeScale" id=20]
 
-[sub_resource type="AnimationNodeBlendTree" id=7]
-graph_offset = Vector2( 0, 49.56 )
-nodes/Animation/node = SubResource( 5 )
-nodes/Animation/position = Vector2( 100, 120 )
-nodes/TimeScale/node = SubResource( 6 )
-nodes/TimeScale/position = Vector2( 260, 100 )
-nodes/output/position = Vector2( 460, 130 )
+[sub_resource type="AnimationNodeBlendTree" id=21]
+graph_offset = Vector2( -200.07, 37.17 )
+nodes/Animation/node = SubResource( 19 )
+nodes/Animation/position = Vector2( -60, 100 )
+nodes/TimeScale/node = SubResource( 20 )
+nodes/TimeScale/position = Vector2( 130, 100 )
 node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
 [sub_resource type="AnimationNodeAnimation" id=8]
@@ -91,24 +153,26 @@ animation = "Standby"
 [sub_resource type="AnimationNodeStateMachineTransition" id=9]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=10]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
-[sub_resource type="AnimationNodeStateMachine" id=21]
+[sub_resource type="AnimationNodeStateMachine" id=13]
 states/Attack/node = SubResource( 4 )
 states/Attack/position = Vector2( 303, 168 )
-states/Move/node = SubResource( 7 )
-states/Move/position = Vector2( 499.5, 100.5 )
+states/Move/node = SubResource( 21 )
+states/Move/position = Vector2( 460.495, 107.45 )
 states/Standby/node = SubResource( 8 )
 states/Standby/position = Vector2( 303, 97 )
-transitions = [ "Standby", "Attack", SubResource( 9 ), "Attack", "Standby", SubResource( 10 ), "Move", "Standby", SubResource( 19 ), "Standby", "Move", SubResource( 20 ) ]
+transitions = [ "Standby", "Attack", SubResource( 9 ), "Attack", "Standby", SubResource( 10 ), "Standby", "Move", SubResource( 22 ), "Move", "Standby", SubResource( 23 ) ]
 start_node = "Standby"
+graph_offset = Vector2( -46.505, 20.45 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=22]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
 
-[sub_resource type="CapsuleShape2D" id=23]
+[sub_resource type="CapsuleShape2D" id=15]
 radius = 10.0001
 height = 33.9999
 
@@ -128,26 +192,24 @@ max_speed = 30.0
 strength = 5.0
 max_health = 100.0
 
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Damage = SubResource( 24 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 1 )
 anims/Move = SubResource( 2 )
 anims/Standby = SubResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 21 )
+tree_root = SubResource( 13 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 22 )
+parameters/playback = SubResource( 14 )
 parameters/Move/TimeScale/scale = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -10 )
 rotation = -1.5708
-shape = SubResource( 23 )
-
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.54, 0.578 )
-texture = ExtResource( 5 )
-offset = Vector2( 0, -50 )
+shape = SubResource( 15 )
 
 [node name="Pivot" type="Position2D" parent="."]
 
@@ -182,10 +244,17 @@ collision_layer = 32
 [node name="CollisionPolygon2D" parent="Pivot/StaticBodyHitBox" index="0"]
 polygon = PoolVector2Array( -18, 0, -27, -10, -27, -28, -16, -41, -10, -44, 3, -44, 27, -16, 27, -7, 19, 0 )
 
+[node name="Sprite" type="Sprite" parent="Pivot"]
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 0.54, 0.578 )
+texture = ExtResource( 5 )
+offset = Vector2( 0, -50 )
+
 [node name="Targeting" parent="." instance=ExtResource( 6 )]
 visible = false
 collision_mask = 64
 
+[connection signal="took_damage" from="." to="." method="_on_ShroomBeetle_took_damage"]
 [connection signal="damage" from="Pivot/HitBox" to="." method="_on_HitBox_damage"]
 [connection signal="area_entered" from="Pivot/HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="Pivot/StopBox" to="." method="_on_StopBox_area_entered"]

@@ -27,7 +27,6 @@ var acceleration = Vector2(0, gravity)
 var state = State.Move
 var enemies_in_range: = 0
 
-onready var sprite: Sprite = $Sprite
 onready var pivot: Position2D = $Pivot
 onready var targeting: Targeting
 onready var animation_tree: AnimationTree = $AnimationTree
@@ -50,13 +49,11 @@ func _physics_process(delta: float) -> void:
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	velocity = move_and_slide(velocity)
 	
-	animation_tree.set("parameters/Move/TimeScale/scale", velocity.x * 0.5)
+	animation_tree.set("parameters/Move/TimeScale/scale", abs(velocity.x) * 0.1)
 	
 	if facing.x < 0:
-		sprite.flip_h = true
 		pivot.scale.x = -1
 	else:
-		sprite.flip_h = false
 		pivot.scale.x = 1
 	
 	match state:

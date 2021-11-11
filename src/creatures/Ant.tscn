@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/tiny ant 1.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=1]
 resource_name = "Attack"
 length = 0.5
 loop = true
@@ -18,17 +18,41 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -2, 0 ), Vector2( 2, -2 ), Vector2( 2, -2 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 15.0, 15.0, 0.0 ]
+}
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=2]
 resource_name = "Move"
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Pivot/Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -40,7 +64,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -1 ) ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=3]
 resource_name = "Standby"
 length = 0.001
 tracks/0/type = "value"
@@ -56,7 +80,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
+tracks/1/path = NodePath("Pivot/Sprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -66,6 +90,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=4]
@@ -130,9 +166,9 @@ rampup_time = 0.5
 strength = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack = SubResource( 19 )
-anims/Move = SubResource( 20 )
-anims/Standby = SubResource( 21 )
+anims/Attack = SubResource( 1 )
+anims/Move = SubResource( 2 )
+anims/Standby = SubResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 13 )
@@ -140,12 +176,14 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 14 )
 parameters/Move/TimeScale/scale = 1.0
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Pivot" type="Position2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Pivot"]
+position = Vector2( 1.69881, -1.69881 )
+rotation = 0.222373
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 5 )
 offset = Vector2( 0, -50 )
-
-[node name="Pivot" type="Position2D" parent="."]
 
 [node name="HitBox" parent="Pivot" instance=ExtResource( 2 )]
 visible = true
@@ -177,6 +215,7 @@ rotation = -1.5708
 shape = SubResource( 18 )
 
 [node name="Targeting" parent="." instance=ExtResource( 6 )]
+visible = false
 collision_mask = 16
 
 [connection signal="took_damage" from="." to="." method="_on_Ant_took_damage"]
