@@ -5,6 +5,8 @@ class_name Creature
 export var max_speed: = 0.0
 # time it takes to get to max_speed (seconds)
 export var rampup_time: = 1.0
+# roughly how long it takes to top (seconds)
+export var stop_time: = 2.0
 # amount of damage creature does
 export var strength: = 1.0
 # amount of health creature has
@@ -26,6 +28,7 @@ var velocity: = Vector2.ZERO
 var acceleration = Vector2(0, gravity)
 var state = State.Move
 var enemies_in_range: = 0
+var current_drag: = 0.0
 
 onready var pivot: Position2D = $Pivot
 onready var targeting: Targeting
@@ -47,6 +50,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	velocity += acceleration * delta
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	velocity.x -= velocity.x * clamp(current_drag * delta, 0, 1)
 	velocity = move_and_slide(velocity)
 	
 	animation_tree.set("parameters/Move/TimeScale/scale", abs(velocity.x) * 0.1)
@@ -69,8 +73,8 @@ func enemy_in_range() -> void:
 
 func start_attacking() -> void:
 	acceleration.x = 0
-	velocity.x = 0
 	state = State.Attack
+	current_drag = 1/stop_time
 
 func enemy_out_of_range() -> void:
 	enemies_in_range -= 1
@@ -79,6 +83,7 @@ func enemy_out_of_range() -> void:
 
 func stop_attacking() -> void:
 	state = State.Move
+	current_drag = 0.0
 
 func moving() -> void:
 	animation_state.travel("Move")

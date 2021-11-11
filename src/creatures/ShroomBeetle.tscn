@@ -189,6 +189,7 @@ extents = Vector2( 16, 14 )
 collision_layer = 4
 script = ExtResource( 1 )
 max_speed = 30.0
+stop_time = 1.0
 strength = 5.0
 max_health = 100.0
 
