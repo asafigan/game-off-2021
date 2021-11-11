@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Creature",
+"language": "GDScript",
+"path": "res://src/creatures/Creature.gd"
+}, {
+"base": "Area2D",
+"class": "Targeting",
+"language": "GDScript",
+"path": "res://src/collisions/Targeting.gd"
+} ]
+_global_script_class_icons={
+"Creature": "",
+"Targeting": ""
+}
+
+[application]
+
+config/name="Cordyceps"
+run/main_scene="res://src/BattleField.tscn"
+config/icon="res://icon.png"
+
+[debug]
+
+shapes/collision/shape_color=Color( 1, 1, 1, 0.419608 )
+
+[global]
+
+shape=false
+layer=false
+name=false
+
+[layer_names]
+
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="Allies"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="AllyHitBox"
+2d_physics/layer_5="EnemyHitBox"
+2d_physics/layer_6="EnemyProjectileHitBox"
+2d_physics/layer_7="BaseHitbox"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+2d/sleep_threshold_angular=0.3
+2d/time_before_sleep=0.1
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

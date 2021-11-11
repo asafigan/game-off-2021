@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 48, 16 )
+
+[node name="Base" type="Node2D"]
+
+[node name="HitBox" parent="." instance=ExtResource( 1 )]
+visible = true
+collision_layer = 72
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[editable path="HitBox"]
