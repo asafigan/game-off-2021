@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tiny ant 1.png-9f50c83026656f6aa20098b53771de3a.stex"
+path="res://.import/ant-gray.png-fc2f3f490d535cc6289b454ec63f3cc3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiny ant 1.png"
-dest_files=[ "res://.import/tiny ant 1.png-9f50c83026656f6aa20098b53771de3a.stex" ]
+source_file="res://assets/ant-gray.png"
+dest_files=[ "res://.import/ant-gray.png-fc2f3f490d535cc6289b454ec63f3cc3.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

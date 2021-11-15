@@ -4,7 +4,7 @@
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/collisions/HurtBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/collisions/StopBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/tiny ant 1.png" type="Texture" id=5]
+[ext_resource path="res://assets/ant-gray.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
@@ -180,11 +180,9 @@ parameters/Move/TimeScale/scale = 1.0
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-position = Vector2( 2, -2 )
-rotation = 0.261799
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
-offset = Vector2( 0, -50 )
+offset = Vector2( 0, -5 )
 
 [node name="HitBox" parent="Pivot" instance=ExtResource( 2 )]
 visible = true
@@ -201,6 +199,7 @@ collision_mask = 16
 [node name="CollisionShape2D" parent="Pivot/HurtBox" index="0"]
 position = Vector2( 6, -7 )
 shape = SubResource( 16 )
+disabled = true
 
 [node name="StopBox" parent="Pivot" instance=ExtResource( 4 )]
 collision_mask = 16
