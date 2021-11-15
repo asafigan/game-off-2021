@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/creatures/ShroomBeetle.gd" type="Script" id=1]
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://assets/shroom beetle.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/collisions/StaticBodyHitBox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/effects/Ghost.tscn" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=1]
 resource_name = "Damage"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:modulate")
@@ -23,8 +24,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Attack"
+[sub_resource type="Animation" id=2]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/HurtBox/CollisionShape2D:disabled")
@@ -63,8 +63,7 @@ tracks/2/keys = {
 "values": [ 0.0, -10.2462, 10.8, 10.8 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Move"
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:position")
@@ -79,8 +78,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -2 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Standby"
+[sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:position")
@@ -131,58 +129,58 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Attack"
 
-[sub_resource type="AnimationNodeAnimation" id=19]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Move"
 
-[sub_resource type="AnimationNodeTimeScale" id=20]
+[sub_resource type="AnimationNodeTimeScale" id=7]
 
-[sub_resource type="AnimationNodeBlendTree" id=21]
+[sub_resource type="AnimationNodeBlendTree" id=8]
 graph_offset = Vector2( -200.07, 37.17 )
-nodes/Animation/node = SubResource( 19 )
+nodes/Animation/node = SubResource( 6 )
 nodes/Animation/position = Vector2( -60, 100 )
-nodes/TimeScale/node = SubResource( 20 )
+nodes/TimeScale/node = SubResource( 7 )
 nodes/TimeScale/position = Vector2( 130, 100 )
 node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Standby"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
-[sub_resource type="AnimationNodeStateMachine" id=13]
-states/Attack/node = SubResource( 4 )
+[sub_resource type="AnimationNodeStateMachine" id=14]
+states/Attack/node = SubResource( 5 )
 states/Attack/position = Vector2( 303, 168 )
-states/Move/node = SubResource( 21 )
+states/Move/node = SubResource( 8 )
 states/Move/position = Vector2( 460.495, 107.45 )
-states/Standby/node = SubResource( 8 )
+states/Standby/node = SubResource( 9 )
 states/Standby/position = Vector2( 303, 97 )
-transitions = [ "Standby", "Attack", SubResource( 9 ), "Attack", "Standby", SubResource( 10 ), "Standby", "Move", SubResource( 22 ), "Move", "Standby", SubResource( 23 ) ]
+transitions = [ "Standby", "Attack", SubResource( 10 ), "Attack", "Standby", SubResource( 11 ), "Standby", "Move", SubResource( 12 ), "Move", "Standby", SubResource( 13 ) ]
 start_node = "Standby"
 graph_offset = Vector2( -46.505, 20.45 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
 
-[sub_resource type="CapsuleShape2D" id=15]
+[sub_resource type="CapsuleShape2D" id=16]
 radius = 10.0001
 height = 33.9999
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 22, 27 )
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 19, 14 )
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 16, 14 )
 
 [node name="ShroomBeetle" type="KinematicBody2D"]
@@ -192,25 +190,26 @@ max_speed = 30.0
 stop_time = 1.0
 strength = 5.0
 max_health = 100.0
+death_scene = ExtResource( 8 )
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Damage = SubResource( 24 )
+anims/Damage = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack = SubResource( 1 )
-anims/Move = SubResource( 2 )
-anims/Standby = SubResource( 3 )
+anims/Attack = SubResource( 2 )
+anims/Move = SubResource( 3 )
+anims/Standby = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 13 )
+tree_root = SubResource( 14 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 14 )
+parameters/playback = SubResource( 15 )
 parameters/Move/TimeScale/scale = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -10 )
 rotation = -1.5708
-shape = SubResource( 15 )
+shape = SubResource( 16 )
 
 [node name="Pivot" type="Position2D" parent="."]
 
@@ -222,14 +221,14 @@ collision_layer = 16
 
 [node name="CollisionShape2D" parent="Pivot/HitBox" index="0"]
 position = Vector2( 15, 5.43594e-05 )
-shape = SubResource( 16 )
+shape = SubResource( 17 )
 
 [node name="HurtBox" parent="Pivot" instance=ExtResource( 3 )]
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="Pivot/HurtBox" index="0"]
 position = Vector2( 19, -14 )
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 disabled = true
 
 [node name="StopBox" parent="Pivot" instance=ExtResource( 4 )]
@@ -237,7 +236,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" parent="Pivot/StopBox" index="0"]
 position = Vector2( 16, -14 )
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 
 [node name="StaticBodyHitBox" parent="Pivot" instance=ExtResource( 7 )]
 collision_layer = 32
@@ -255,6 +254,7 @@ offset = Vector2( 0, -50 )
 visible = false
 collision_mask = 64
 
+[connection signal="killed" from="." to="." method="_on_ShroomBeetle_killed"]
 [connection signal="took_damage" from="." to="." method="_on_ShroomBeetle_took_damage"]
 [connection signal="damage" from="Pivot/HitBox" to="." method="_on_HitBox_damage"]
 [connection signal="area_entered" from="Pivot/HurtBox" to="." method="_on_HurtBox_area_entered"]

@@ -3,6 +3,7 @@ extends Creature
 var projectile_form: PackedScene = load("res://src/catapult/projectiles/AntProjectile.tscn")
 var rng = RandomNumberGenerator.new()
 var has_been_flung: = false
+var death_scene: PackedScene = load("res://src/effects/Ghost.tscn")
 
 func _ready():
 	rng.randomize()
@@ -37,4 +38,4 @@ func fling():
 		spawned.set("spawn_with_health", current_health)
 		spawned.call_deferred("disable_enemy_collisions")
 		if current_health <= 0:
-			spawned.set("spawn_scene", null)
+			spawned.set("spawn_scene", death_scene)
