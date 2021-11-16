@@ -4,7 +4,7 @@
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/collisions/HurtBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/collisions/StopBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/ant-gray.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/ant-gray.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]

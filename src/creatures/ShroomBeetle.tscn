@@ -4,7 +4,7 @@
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/collisions/HurtBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/collisions/StopBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/shroom beetle.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/shroom beetle.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/collisions/StaticBodyHitBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/effects/Ghost.tscn" type="PackedScene" id=8]

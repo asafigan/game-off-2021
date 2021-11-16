@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bug-game-draft.wav-b965c6df6d424bc317ab90fa3d7df2b4.sample"
+
+[deps]
+
+source_file="res://assets/music/bug-game-draft.wav"
+dest_files=[ "res://.import/bug-game-draft.wav-b965c6df6d424bc317ab90fa3d7df2b4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

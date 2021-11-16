@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/ant-gray.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/ant-gray.png" type="Texture" id=1]
 [ext_resource path="res://src/catapult/projectiles/Projectile.gd" type="Script" id=2]
 [ext_resource path="res://src/creatures/Ant.tscn" type="PackedScene" id=4]
 

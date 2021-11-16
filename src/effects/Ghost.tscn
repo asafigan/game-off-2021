@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/ghost-sprite-sheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/ghost-sprite-sheet.png" type="Texture" id=1]
 [ext_resource path="res://src/effects/Ghost.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=6]
