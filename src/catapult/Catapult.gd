@@ -23,7 +23,7 @@ func _input(event):
 			var end_point: Vector2 = event.position
 			var vector = (end_point - origin).normalized()
 			var spawned := spawn_scene.instance() as RigidBody2D
-			get_parent().add_child(spawned)
 			spawned.global_position = to_global(Vector2.ZERO)
 			spawned.linear_velocity = vector * launch_speed
 			spawned.angular_velocity = rng.randf_range(-max_angular_velocity, max_angular_velocity)
+			get_parent().add_child(spawned)

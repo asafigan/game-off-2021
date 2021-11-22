@@ -31,11 +31,15 @@ func fling():
 	queue_free()
 	if projectile_form and not has_been_flung:
 		var spawned = projectile_form.instance()
-		get_parent().add_child(spawned)
 		spawned.linear_velocity = (Vector2.UP - facing) * 100
 		spawned.angular_velocity = rng.randf_range(-100, 100)
 		spawned.global_position = global_position + Vector2(0, -4)
+		spawned.set("play_damage_animation", true)
+		spawned.set("should_do_damage", false)
+		spawned.call("disable_enemy_collisions")
+		get_parent().add_child(spawned)
+		
 		spawned.set("spawn_with_health", current_health)
-		spawned.call_deferred("disable_enemy_collisions")
+		
 		if current_health <= 0:
 			spawned.set("spawn_scene", death_scene)

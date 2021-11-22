@@ -6,11 +6,19 @@ export var strength: = 10.0
 export var spawn_scene: PackedScene
 export var should_do_damage: = true
 export var spawn_with_health: float
+export var play_damage_animation: bool
 
 var has_done_damage: = false
 var bodies_in = 0
 
 onready var timer: Timer = $Timer
+onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+func _ready():
+	if play_damage_animation:
+		if animation_player:
+			animation_player.stop()
+			animation_player.play("Damage")
 
 func _on_AntProjectile_body_entered(body):
 	timer.start()
@@ -18,9 +26,10 @@ func _on_AntProjectile_body_entered(body):
 		attack(body)
 		has_done_damage = true
 
-const enemyProjectileHitBoxLayer = 5
+const enemyProjectileHitBoxLayer = int(pow(2, 5))
 func disable_enemy_collisions():
-	collision_mask = collision_mask - pow(2, enemyProjectileHitBoxLayer)
+	if collision_mask & enemyProjectileHitBoxLayer != 0:
+		collision_mask = collision_mask - enemyProjectileHitBoxLayer
 
 func attack(body):
 	bodies_in += 1
@@ -38,8 +47,8 @@ func _on_AntProjectile_sleeping_state_changed():
 
 func spawn():
 	var spawned = spawn_scene.instance()
-	get_parent().add_child(spawned)
 	spawned.global_position = global_position
+	get_parent().add_child(spawned)
 	
 	var facing = to_global(Vector2.RIGHT)-global_position
 	facing.y = 0
@@ -47,6 +56,7 @@ func spawn():
 	
 	if spawn_with_health:
 		spawned.set("current_health", spawn_with_health)
+		
 
 func _on_Timer_timeout():
 	disable_enemy_collisions()

@@ -12,6 +12,6 @@ func _on_Timer_timeout():
 func spawn():
 	if spawn_scene:
 		var spawned = spawn_scene.instance()
-		get_parent().add_child(spawned)
 		spawned.global_position = global_position
+		get_parent().add_child(spawned)
 		spawned.set("facing", facing)
