@@ -1,7 +1,14 @@
 extends Area2D
 class_name Targeting
 
+var ref: WeakRef
+
 func get_closest_target():
+	if ref:
+		var deref = ref.get_ref()
+		if deref:
+			return deref
+			
 	var closest = null
 	var distance = 0
 	for target in get_overlapping_areas():
@@ -10,4 +17,5 @@ func get_closest_target():
 			closest = target
 			distance = target_distance
 	
+	ref = weakref(closest)
 	return closest
