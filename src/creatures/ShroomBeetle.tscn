@@ -188,9 +188,11 @@ collision_layer = 4
 script = ExtResource( 1 )
 max_speed = 30.0
 stop_time = 1.0
-strength = 5.0
+attack_damage = 5.0
+attack_force = 10.0
 max_health = 100.0
 death_scene = ExtResource( 8 )
+death_scene_scale = 2.0
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Damage = SubResource( 1 )
@@ -254,10 +256,9 @@ offset = Vector2( 0, -50 )
 visible = false
 collision_mask = 64
 
-[connection signal="killed" from="." to="." method="_on_ShroomBeetle_killed"]
 [connection signal="took_damage" from="." to="." method="_on_ShroomBeetle_took_damage"]
 [connection signal="damage" from="Pivot/HitBox" to="." method="_on_HitBox_damage"]
-[connection signal="area_entered" from="Pivot/HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="hurt" from="Pivot/HurtBox" to="." method="_on_HurtBox_hurt"]
 [connection signal="area_entered" from="Pivot/StopBox" to="." method="_on_StopBox_area_entered"]
 [connection signal="area_exited" from="Pivot/StopBox" to="." method="_on_StopBox_area_exited"]
 [connection signal="damage" from="Pivot/StaticBodyHitBox" to="." method="_on_StaticBodyHitBox_damage"]

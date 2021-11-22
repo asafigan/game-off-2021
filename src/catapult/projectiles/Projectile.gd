@@ -7,6 +7,7 @@ export var spawn_scene: PackedScene
 export var should_do_damage: = true
 export var spawn_with_health: float
 export var play_damage_animation: bool
+export var spawn_scene_scale: float = 1.0
 
 var has_done_damage: = false
 var bodies_in = 0
@@ -22,6 +23,7 @@ func _ready():
 
 func _on_AntProjectile_body_entered(body):
 	timer.start()
+	
 	if should_do_damage and not has_done_damage:
 		attack(body)
 		has_done_damage = true
@@ -48,6 +50,7 @@ func _on_AntProjectile_sleeping_state_changed():
 func spawn():
 	var spawned = spawn_scene.instance()
 	spawned.global_position = global_position
+	spawned.scale = Vector2(spawn_scene_scale, spawn_scene_scale)
 	get_parent().add_child(spawned)
 	
 	var facing = to_global(Vector2.RIGHT)-global_position

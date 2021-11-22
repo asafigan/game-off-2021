@@ -164,7 +164,9 @@ script = ExtResource( 1 )
 max_speed = 40.0
 rampup_time = 0.5
 stop_time = 0.2
-strength = 5.0
+attack_damage = 5.0
+attack_force = 0.0
+path_to_projectile_form = "res://src/catapult/projectiles/AntProjectile.tscn"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 1 )
@@ -217,9 +219,8 @@ shape = SubResource( 18 )
 visible = false
 collision_mask = 16
 
-[connection signal="took_damage" from="." to="." method="_on_Ant_took_damage"]
 [connection signal="damage" from="Pivot/HitBox" to="." method="_on_HitBox_damage"]
-[connection signal="area_entered" from="Pivot/HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="hurt" from="Pivot/HurtBox" to="." method="_on_HurtBox_hurt"]
 [connection signal="area_entered" from="Pivot/StopBox" to="." method="_on_StopBox_area_entered"]
 [connection signal="area_exited" from="Pivot/StopBox" to="." method="_on_StopBox_area_exited"]
 
