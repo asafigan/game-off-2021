@@ -9,6 +9,9 @@ func get_closest_target():
 		if deref:
 			return deref
 			
+	return find_new_target()
+
+func find_new_target():
 	var closest = null
 	var distance = 0
 	for target in get_overlapping_areas():
@@ -19,3 +22,6 @@ func get_closest_target():
 	
 	ref = weakref(closest)
 	return closest
+
+func _on_Timer_timeout():
+	find_new_target()
