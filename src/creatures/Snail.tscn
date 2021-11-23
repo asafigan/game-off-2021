@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/creatures/Snail.gd" type="Script" id=1]
 [ext_resource path="res://src/collisions/HitBox.tscn" type="PackedScene" id=2]
@@ -6,6 +6,21 @@
 [ext_resource path="res://src/collisions/StopBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/sprites/snail.png" type="Texture" id=5]
 [ext_resource path="res://src/collisions/Targeting.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=19]
+resource_name = "Damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack"
@@ -169,6 +184,9 @@ max_stance = 100.0
 path_to_projectile_form = "res://src/catapult/projectiles/SnailProjectile.tscn"
 death_scene_scale = 1.5
 
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Damage = SubResource( 19 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 1 )
 anims/Move = SubResource( 2 )
@@ -222,6 +240,7 @@ shape = SubResource( 18 )
 visible = false
 collision_mask = 16
 
+[connection signal="took_damage" from="." to="." method="_on_Snail_took_damage"]
 [connection signal="damage" from="Pivot/HitBox" to="." method="_on_HitBox_damage"]
 [connection signal="hurt" from="Pivot/HurtBox" to="." method="_on_HurtBox_hurt"]
 [connection signal="area_entered" from="Pivot/StopBox" to="." method="_on_StopBox_area_entered"]
