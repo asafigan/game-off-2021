@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Projectile
 
 # amount of damage done on hit
 export var strength: = 10.0
@@ -21,7 +21,7 @@ func _ready():
 			animation_player.stop()
 			animation_player.play("Damage")
 
-func _on_AntProjectile_body_entered(body):
+func on_hit(body):
 	timer.start()
 	
 	if should_do_damage and not has_done_damage:
@@ -40,7 +40,7 @@ func attack(body):
 	body.emit_signal("damage", strength)
 
 
-func _on_AntProjectile_sleeping_state_changed():
+func on_sleeping_state_changed():
 	if sleeping:
 		if spawn_scene:
 			# have to defer because we are in the middle of collisions
@@ -60,6 +60,3 @@ func spawn():
 	if spawn_with_health:
 		spawned.set("current_health", spawn_with_health)
 		
-
-func _on_Timer_timeout():
-	disable_enemy_collisions()
